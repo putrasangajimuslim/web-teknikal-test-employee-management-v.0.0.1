@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NotificationService } from '../../../../core/services/notification.service';
 import { EMPLOYEE_GROUPS, EMPLOYEE_STATUSES, EmployeeStatus } from '../../../../shared/models/employee.model';
+import { DatePickerComponent } from '../../../../shared/components/date-picker/date-picker.component';
 import { EmployeeService } from '../../services/employee.service';
 
 const notFutureDate: ValidatorFn = (control: AbstractControl): ValidationErrors | null => {
@@ -12,10 +13,13 @@ const notFutureDate: ValidatorFn = (control: AbstractControl): ValidationErrors 
   return control.value > new Date().toISOString().slice(0, 10) ? { futureDate: true } : null;
 };
 
+const MIN_BASIC_SALARY = 1_000_000;
+const MAX_BASIC_SALARY = 1_000_000_000_000;
+
 @Component({
   selector: 'app-employee-add',
   standalone: true,
-  imports: [FormsModule, NgIf, ReactiveFormsModule],
+  imports: [FormsModule, NgIf, ReactiveFormsModule, DatePickerComponent],
   templateUrl: './employee-add.component.html',
   styleUrl: './employee-add.component.scss'
 })
@@ -34,7 +38,7 @@ export class EmployeeAddComponent {
     lastName: ['', [Validators.required, Validators.maxLength(50)]],
     email: ['', [Validators.required, Validators.email]],
     birthDate: ['', [Validators.required, notFutureDate]],
-    basicSalary: [0, [Validators.required, Validators.min(1000000)]],
+    basicSalary: [0, [Validators.required, Validators.min(MIN_BASIC_SALARY), Validators.max(MAX_BASIC_SALARY)]],
     status: ['', Validators.required],
     group: ['', Validators.required],
     description: ['', [Validators.required, Validators.maxLength(500)]]
@@ -83,6 +87,12 @@ export class EmployeeAddComponent {
     return this.salaryDigits ? this.formatThousands(this.salaryDigits) : '';
   }
 
+  get basicSalaryError(): string {
+    const control = this.employeeForm.controls.basicSalary;
+    if (control.hasError('max')) return 'Maximum basic salary is Rp1.000.000.000.000.';
+    return 'Minimum basic salary is Rp1.000.000.';
+  }
+
   onSalaryInput(event: Event): void {
     const input = event.target as HTMLInputElement;
     const digits = this.normalizeDigits(input.value);
@@ -96,7 +106,8 @@ export class EmployeeAddComponent {
   }
 
   private normalizeDigits(value: string): string {
-    return value.replace(/\D/g, '').replace(/^0+(?=\d)/, '');
+    const digits = value.replace(/\D/g, '').replace(/^0+(?=\d)/, '');
+    return digits && Number(digits) > MAX_BASIC_SALARY ? String(MAX_BASIC_SALARY) : digits;
   }
 
   private digitsFromNumber(value: number): string {

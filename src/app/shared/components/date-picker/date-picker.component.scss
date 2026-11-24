@@ -1,0 +1,228 @@
+:host {
+  display: block;
+  position: relative;
+}
+
+.date-trigger {
+  align-items: center;
+  background: #fff;
+  border: 1px solid #dfe3eb;
+  border-radius: 8px;
+  color: var(--ink);
+  cursor: pointer;
+  display: flex;
+  font-family: inherit;
+  font-size: 13px;
+  gap: 10px;
+  justify-content: space-between;
+  min-height: 43px;
+  outline: none;
+  padding: 0 12px;
+  text-align: left;
+  transition: border-color .2s, box-shadow .2s;
+  width: 100%;
+}
+
+.date-trigger:hover:not(:disabled) {
+  border-color: #b8c3d4;
+}
+
+.date-trigger:focus-visible,
+.date-trigger--open {
+  border-color: #8984ed;
+  box-shadow: 0 0 0 3px rgba(79, 70, 229, .1);
+}
+
+.date-trigger.input--invalid {
+  border-color: #e77b7b;
+}
+
+.date-trigger:disabled {
+  cursor: not-allowed;
+  opacity: .6;
+}
+
+.date-trigger__value--empty {
+  color: #a6adbb;
+}
+
+.date-trigger__icon {
+  color: var(--primary);
+  flex-shrink: 0;
+  height: 18px;
+  width: 18px;
+}
+
+/* ==========================================================================
+   Calendar popover
+   ========================================================================== */
+.date-popover {
+  background: #fff;
+  border: 1px solid #e6eaf0;
+  border-radius: 14px;
+  box-shadow: 0 22px 50px rgba(24, 39, 75, .16);
+  left: 0;
+  padding: 16px;
+  position: absolute;
+  top: calc(100% + 8px);
+  width: min(300px, calc(100vw - 46px));
+  z-index: 20;
+}
+
+.date-popover__header {
+  align-items: center;
+  display: flex;
+  gap: 8px;
+  justify-content: space-between;
+  margin-bottom: 13px;
+}
+
+.date-popover__title {
+  align-items: center;
+  display: flex;
+  gap: 6px;
+}
+
+.date-month {
+  color: #263149;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.date-year {
+  background: #f4f7fb;
+  border: 1px solid #e6eaf0;
+  border-radius: 7px;
+  color: #263149;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 4px 5px;
+  transition: border-color .18s, background .18s;
+}
+
+.date-year:hover,
+.date-year:focus {
+  background: var(--primary-soft);
+  border-color: var(--primary);
+  outline: 0;
+}
+
+.date-nav {
+  align-items: center;
+  background: #f4f7fb;
+  border: 0;
+  border-radius: 8px;
+  color: #55627a;
+  cursor: pointer;
+  display: inline-flex;
+  flex-shrink: 0;
+  font-family: inherit;
+  font-size: 19px;
+  height: 32px;
+  justify-content: center;
+  line-height: 1;
+  transition: background .18s, color .18s;
+  width: 32px;
+}
+
+.date-nav:hover:not(:disabled) {
+  background: var(--primary-soft);
+  color: var(--primary);
+}
+
+.date-nav:disabled {
+  cursor: not-allowed;
+  opacity: .32;
+}
+
+.date-weekdays,
+.date-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+}
+
+.date-weekdays {
+  color: #9aa4b2;
+  font-size: 10px;
+  font-weight: 700;
+  margin-bottom: 5px;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.date-weekdays span {
+  padding: 4px 0;
+}
+
+.date-grid {
+  gap: 3px;
+}
+
+.date-day {
+  align-items: center;
+  background: transparent;
+  border: 0;
+  border-radius: 8px;
+  color: #3c4860;
+  cursor: pointer;
+  display: inline-flex;
+  font-family: inherit;
+  font-size: 12px;
+  height: 34px;
+  justify-content: center;
+  padding: 0;
+  transition: background .15s, color .15s, box-shadow .15s;
+}
+
+.date-day:hover:not(:disabled):not(.date-day--selected) {
+  background: var(--primary-soft);
+  color: var(--primary);
+}
+
+.date-day--today {
+  box-shadow: inset 0 0 0 1px var(--primary);
+}
+
+.date-day--selected,
+.date-day--selected:hover {
+  background: var(--primary);
+  color: #fff;
+  font-weight: 700;
+}
+
+.date-day--muted {
+  color: #cfd5df;
+  cursor: not-allowed;
+}
+
+.date-day--empty {
+  cursor: default;
+}
+
+.date-popover__footer {
+  border-top: 1px solid #eef1f5;
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 10px;
+  padding-top: 9px;
+}
+
+.date-clear {
+  background: transparent;
+  border: 0;
+  border-radius: 6px;
+  color: var(--primary);
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 5px 8px;
+  transition: background .18s, color .18s;
+}
+
+.date-clear:hover {
+  background: var(--primary-soft);
+  color: var(--primary-dark);
+}

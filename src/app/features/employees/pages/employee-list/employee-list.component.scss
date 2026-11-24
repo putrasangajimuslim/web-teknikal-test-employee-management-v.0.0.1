@@ -14,22 +14,6 @@
   margin-top: 5px;
 }
 
-.toolbar-meta {
-  align-items: center;
-  color: #91a0a3;
-  display: flex;
-  font-size: 11px;
-  gap: 7px;
-}
-
-.live-dot {
-  background: #2bb9a4;
-  border-radius: 50%;
-  box-shadow: 0 0 0 3px #ddf7f1;
-  height: 6px;
-  width: 6px;
-}
-
 .filter-panel {
   align-items: flex-end;
   background: #fbfdfd;
@@ -115,8 +99,13 @@ td {
   font-size: 12px;
 }
 
+tbody tr {
+  background: #fff;
+  transition: background-color .15s ease;
+}
+
 tbody tr:hover {
-  background: #fbfbff;
+  background: rgba(29, 35, 69, .05);
 }
 
 tbody tr:last-child td {
@@ -196,6 +185,25 @@ tbody tr:last-child td {
 .row-action--view {
   background: var(--primary-soft);
   color: var(--primary);
+}
+
+.row-action svg {
+  display: block;
+  height: 15px;
+  width: 15px;
+}
+
+.row-action--edit {
+  color: #2563eb;
+}
+
+.row-action--edit:hover {
+  background: #eaf2ff;
+  color: #2563eb;
+}
+
+.row-action--delete {
+  color: var(--danger);
 }
 
 .row-action--delete:hover {
@@ -340,11 +348,5 @@ tbody tr:last-child td {
 
   .pagination__controls label {
     width: 100%;
-  }
-}
-
-@media (max-width: 440px) {
-  .toolbar-meta {
-    font-size: 10px;
   }
 }
