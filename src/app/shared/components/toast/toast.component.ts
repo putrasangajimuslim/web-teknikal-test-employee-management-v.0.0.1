@@ -8,17 +8,8 @@ import { Notification } from '../../models/notification.model';
   standalone: true,
   imports: [AsyncPipe],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  template: `
-    <div class="toast-stack" aria-live="polite" aria-atomic="true">
-      @for (toast of notifications$ | async; track toast.id) {
-        <div class="toast" [class]="'toast--' + toast.type" role="status">
-          <span class="toast__icon" aria-hidden="true">{{ iconFor(toast) }}</span>
-          <span class="toast__message">{{ toast.message }}</span>
-          <button class="toast__close" type="button" aria-label="Close notification" (click)="dismiss(toast.id)">×</button>
-        </div>
-      }
-    </div>
-  `
+  templateUrl: './toast.component.html',
+  styleUrl: './toast.component.scss'
 })
 export class ToastComponent {
   private readonly notificationService = inject(NotificationService);
